@@ -19,6 +19,8 @@ const EMPTY_FORM = {
   festival: "",
   amount: "",
   payment_date: "",
+  payment_method: "CASH",  
+  transaction_reference: "",
 };
 
 function Payments() {
@@ -173,6 +175,8 @@ function Payments() {
       festival: payment.festival || "",
       amount: payment.amount || "",
       payment_date: payment.payment_date || "",
+      payment_method: payment.payment_method || "CASH",
+      transaction_reference: payment.transaction_reference || "",
     });
 
     setShowForm(true);
@@ -226,6 +230,8 @@ function Payments() {
           festival: Number(formData.festival),
           amount: formData.amount,
           payment_date: formData.payment_date,
+          payment_method: formData.payment_method,
+          transaction_reference: formData.transaction_reference,
         }),
       });
 
@@ -565,6 +571,35 @@ function Payments() {
                   required
                 />
               </div>
+
+                {/* PAYMENT METHOD */}
+                <div className="form-group">
+                  <label htmlFor="payment_method">{t("paymentMethod")}</label>
+                  <select
+                    id="payment_method"
+                    name="payment_method"
+                    value={formData.payment_method}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="CASH">{t("paymentMethodCash")}</option>
+                    <option value="UPI">{t("paymentMethodUpi")}</option>
+                    <option value="BANK_TRANSFER">{t("paymentMethodBankTransfer")}</option>
+                  </select>
+                </div>
+
+                {/* TRANSACTION REFERENCE */}
+                <div className="form-group">
+                  <label htmlFor="transaction_reference">{t("transactionReference")}</label>
+                  <input
+                    id="transaction_reference"
+                    type="text"
+                    name="transaction_reference"
+                    value={formData.transaction_reference}
+                    onChange={handleInputChange}
+                    placeholder={t("enterTransactionReference")}
+                  />
+                </div>
 
               {/* BUTTONS */}
 

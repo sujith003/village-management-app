@@ -189,6 +189,12 @@ const resources = {
         "Are you sure you want to delete the payment of ₹{{amount}} made by {{family}} for {{festival}}?",
       paymentDeletedSuccess: "Payment deleted successfully.",
       unableToDeletePayment: "Unable to delete payment.",
+      paymentMethod: "Payment Method",
+paymentMethodCash: "Cash",
+paymentMethodUpi: "UPI",
+paymentMethodBankTransfer: "Bank Transfer",
+transactionReference: "Transaction Reference",
+enterTransactionReference: "Enter transaction / reference number (optional)",
 
       // Expenses page
       manageExpenses: "Manage village festival expenses",
@@ -738,6 +744,12 @@ const resources = {
         "{{family}} அவர்கள் {{festival}} க்காக செலுத்திய ₹{{amount}} பணத்தை நீக்க வேண்டுமா?",
       paymentDeletedSuccess: "பணம் செலுத்துதல் வெற்றிகரமாக நீக்கப்பட்டது.",
       unableToDeletePayment: "பணம் செலுத்துதலை நீக்க முடியவில்லை.",
+      paymentMethod: "பணம் செலுத்தும் முறை",
+      paymentMethodCash: "பணமாக",
+      paymentMethodUpi: "UPI",
+      paymentMethodBankTransfer: "வங்கி பரிமாற்றம்",
+      transactionReference: "பரிவர்த்தனை குறிப்பு எண்",
+      enterTransactionReference: "பரிவர்த்தனை எண்ணை உள்ளிடவும் (விருப்பம்)",
 
       // Expenses page
       manageExpenses: "கிராம திருவிழா செலவுகளை நிர்வகிக்கவும்",
