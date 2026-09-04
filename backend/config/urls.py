@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
-from django.conf.urls.static import static
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve
 from rest_framework.authtoken.views import obtain_auth_token
 
 
@@ -25,8 +25,17 @@ urlpatterns = [
     path("api/", include("important_persons.urls")),
 ]
 
-
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT,
-)
+# Serve uploaded photos (gallery, admin, important persons) directly,
+# regardless of DEBUG. Django's usual static() helper only serves media
+# when DEBUG=True, which would otherwise make every uploaded photo show
+# as broken once DEBUG=False in production. This app doesn't have a
+# separate file/CDN server in front of it, so Django serves them itself
+# — fine at this app's traffic scale, though a dedicated storage service
+# (S3/Cloudinary) would be the more scalable choice down the line.
+urlpatterns += [
+    re_path(
+        r"^media/(?P<path>.*)$",
+        serve,
+        {"document_root": settings.MEDIA_ROOT},
+    ),
+]
