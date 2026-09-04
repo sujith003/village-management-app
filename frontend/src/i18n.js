@@ -475,7 +475,7 @@ enterTransactionReference: "Enter transaction / reference number (optional)",
       // About Us page
       aboutAppTitle: "About Enga Ooru Vengamooru",
       aboutAppIntro:
-        "Enga Ooru Vengamooru is a community application built for our village, to bring festival planning, family records and everyday coordination into one simple, shared place.",
+        "Enga Ooru Vengamooru is a community application built for our village, to bring festival planning, family records and everyday coordination into one simple, shared place, developed & Maintained by Sujith E",
       ourPurpose: "Our Purpose",
       ourPurposeText:
         "This application helps the village community manage festivals, family information, contributions, expenses, announcements, important contacts and everyday community information — all in one place, accessible to everyone.",
@@ -1030,7 +1030,7 @@ enterTransactionReference: "Enter transaction / reference number (optional)",
       // About Us page
       aboutAppTitle: "எங்க ஊரு வெங்கமூரு பற்றி",
       aboutAppIntro:
-        "எங்க ஊரு வெங்கமூரு என்பது நமது கிராமத்திற்காக உருவாக்கப்பட்ட ஒரு சமூக ஆப்ளிகேஷன், திருவிழா திட்டமிடல், குடும்ப விவரங்கள் மற்றும் அன்றாட ஒருங்கிணைப்பை ஒரே இடத்தில் எளிமையாகக் கொண்டு வருகிறது.",
+        "எங்க ஊரு வெங்கமூரு என்பது நமது கிராமத்திற்காக உருவாக்கப்பட்ட ஒரு சமூக ஆப்ளிகேஷன், திருவிழா திட்டமிடல், குடும்ப விவரங்கள் மற்றும் அன்றாட ஒருங்கிணைப்பை ஒரே இடத்தில் எளிமையாகக் கொண்டு வருகிறது, உருவாக்கியவர், பராமரிப்பவர்: சுஜித் E",
       ourPurpose: "எங்கள் நோக்கம்",
       ourPurposeText:
         "இந்த ஆப்ளிகேஷன் கிராம சமூகம் திருவிழாக்கள், குடும்ப தகவல்கள், பங்களிப்புகள், செலவுகள், அறிவிப்புகள், முக்கிய தொடர்புகள் மற்றும் அன்றாட சமூக தகவல்களை நிர்வகிக்க உதவுகிறது — அனைத்தும் ஒரே இடத்தில், அனைவருக்கும் அணுகக்கூடியதாக.",
