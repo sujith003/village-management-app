@@ -15,6 +15,7 @@ import {
   X,
   Check,
   MoreHorizontal,
+  PartyPopper,
 } from "lucide-react";
 
 import Home from "./pages/Home";
@@ -34,6 +35,7 @@ import License from "./pages/License";
 import AdminDetails from "./pages/AdminDetails";
 import ImportantPersons from "./pages/ImportantPersons";
 import AboutVengamur from "./pages/AboutVengamur";
+import FamilyFunctions from "./pages/FamilyFunctions";
 import { ToastProvider } from "./components/Toast";
 import { useToast } from "./components/useToast";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -53,6 +55,7 @@ function safeAmount(value) {
 }
 
 function AppShell() {
+  const isAdmin = localStorage.getItem("userType") === "admin";
   const [notifications, setNotifications] = useState([]);
   const [notificationsLoading, setNotificationsLoading] = useState(false);
   const [notificationsError, setNotificationsError] = useState("");
@@ -82,6 +85,11 @@ function AppShell() {
     { path: "/gallery", label: t("gallery"), icon: Image },
     { path: "/contacts", label: t("contacts"), icon: Phone },
     { path: "/announcements", label: t("announcements"), icon: Bell },
+    {
+      path: "/family-functions",
+      label: t("familyFunctions"),
+      icon: PartyPopper,
+    },
     { path: "/more", label: t("more"), icon: MoreHorizontal },
   ];
 
@@ -103,6 +111,10 @@ function AppShell() {
       }
 
       const data = await response.json();
+      const visible = Array.isArray(data)
+        ? data.filter((item) => isAdmin || item.audience !== "ADMIN")
+        : [];
+      setNotifications(visible);
       setNotifications(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Notification fetch error:", error);
@@ -267,6 +279,10 @@ function AppShell() {
     if (notification.notification_type === "PAYMENT") {
       setShowPaymentDetails(true);
       await fetchPaymentDetails();
+    }
+
+    if (notification.notification_type === "FAMILY_FUNCTION") {
+      window.location.href = "/family-functions";
     }
 
     if (!notification.is_read) {
@@ -478,6 +494,10 @@ function AppShell() {
                 element={<ImportantPersons />}
               />
               <Route path="/about-vengamur" element={<AboutVengamur />} />
+              <Route
+                path="/family-functions"
+                element={<FamilyFunctions />}
+              />
             </Routes>
           </ErrorBoundary>
         </main>

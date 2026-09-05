@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "user_notifications",
     "admin_details",
     "important_persons",
+    "family_functions",
 ]
 
 # Defaults preserve the existing local dev origins; extra production

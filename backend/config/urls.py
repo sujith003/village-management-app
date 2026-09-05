@@ -23,6 +23,7 @@ urlpatterns = [
     path("api/notifications/", include("user_notifications.urls")),
     path("api/", include("admin_details.urls")),
     path("api/", include("important_persons.urls")),
+    path("api/", include("family_functions.urls")),
 ]
 
 # Serve uploaded photos (gallery, admin, important persons) directly,

@@ -7,10 +7,15 @@ class Notification(models.Model):
         ("GALLERY", "Gallery"),
         ("ANNOUNCEMENT", "Announcement"),
         ("PAYMENT", "Payment Reminder"),
+        ("FAMILY_FUNCTION", "Family Function"),
+    ]
+
+    AUDIENCE_CHOICES = [
+        ("ALL", "All Users"),
+        ("ADMIN", "Admin Only"),
     ]
 
     title = models.CharField(max_length=200)
-
     message = models.TextField()
 
     notification_type = models.CharField(
@@ -18,8 +23,13 @@ class Notification(models.Model):
         choices=NOTIFICATION_TYPES
     )
 
-    is_read = models.BooleanField(default=False)
+    audience = models.CharField(
+        max_length=10,
+        choices=AUDIENCE_CHOICES,
+        default="ALL",
+    )
 
+    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

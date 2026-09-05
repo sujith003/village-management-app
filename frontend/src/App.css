@@ -4043,3 +4043,207 @@ button.cancel-button:hover,
     max-width: none;
   }
 }
+
+
+
+/* ---------- Family Functions page ---------- */
+
+.family-functions-page {
+  padding-top: 4px;
+}
+
+.family-functions-header-actions {
+  display: flex;
+  gap: var(--vf-space-2);
+  flex-wrap: wrap;
+}
+
+.function-section {
+  margin-bottom: var(--vf-space-4);
+}
+
+.function-section h2 {
+  margin-bottom: var(--vf-space-2);
+}
+
+.function-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--vf-space-3);
+}
+
+.function-card {
+  background: var(--vf-surface);
+  border: 1px solid var(--vf-border);
+  border-radius: var(--vf-radius);
+  box-shadow: var(--vf-shadow-sm);
+  overflow: hidden;
+  transition: transform var(--vf-transition), box-shadow var(--vf-transition);
+}
+
+.function-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--vf-shadow);
+  border-color: var(--vf-gold);
+}
+
+.function-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--vf-surface-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vf-maroon);
+  overflow: hidden;
+}
+
+.function-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.function-card-body {
+  padding: var(--vf-space-3);
+}
+
+.function-type-badge {
+  display: inline-block;
+  background: var(--vf-gold-soft);
+  color: var(--vf-gold-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.function-card-body h3 {
+  margin: 0 0 6px;
+}
+
+.function-host,
+.function-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  color: var(--vf-ink-soft);
+  margin: 4px 0;
+}
+
+.function-host svg,
+.function-meta svg {
+  color: var(--vf-maroon);
+  flex-shrink: 0;
+}
+
+.function-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: var(--vf-space-2);
+  padding-top: var(--vf-space-2);
+  border-top: 1px solid var(--vf-border);
+}
+
+.function-card-footer button {
+  border: 1px solid var(--vf-border);
+  background: var(--vf-surface);
+  color: var(--vf-maroon);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--vf-transition);
+}
+
+.function-card-footer button:hover {
+  background: var(--vf-maroon-soft);
+  border-color: var(--vf-maroon);
+}
+
+.function-admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--vf-space-2);
+}
+
+.function-admin-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--vf-border);
+  background: var(--vf-surface);
+  color: var(--vf-ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--vf-transition);
+}
+
+.function-admin-actions button:hover {
+  border-color: var(--vf-maroon);
+  color: var(--vf-maroon);
+  background: var(--vf-maroon-soft);
+}
+
+.function-admin-actions .approve-button {
+  border-color: var(--vf-success);
+  color: var(--vf-success);
+}
+
+.function-admin-actions .approve-button:hover {
+  background: var(--vf-success-soft);
+}
+
+.function-admin-actions .reject-button {
+  border-color: var(--vf-danger);
+  color: var(--vf-danger);
+}
+
+.function-admin-actions .reject-button:hover {
+  background: var(--vf-danger-soft);
+}
+
+.form-section-title {
+  font-size: 0.95rem;
+  margin: var(--vf-space-3) 0 var(--vf-space-2);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--vf-border);
+  color: var(--vf-maroon);
+}
+
+.form-section-title:first-child {
+  margin-top: 0;
+}
+
+.function-detail-image {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: var(--vf-radius-sm);
+  margin-bottom: var(--vf-space-2);
+}
+
+@media (max-width: 600px) {
+  .function-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .family-functions-header-actions {
+    width: 100%;
+  }
+
+  .family-functions-header-actions button {
+    flex: 1;
+  }
+}

@@ -12,6 +12,7 @@ class NotificationSerializer(serializers.ModelSerializer):
             "title",
             "message",
             "notification_type",
+            "audience",
             "is_read",
             "created_at",
         ]
