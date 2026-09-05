@@ -532,7 +532,7 @@ enterTransactionReference: "Enter transaction / reference number (optional)",
       // About Us page
       aboutAppTitle: "About Enga Ooru Vengamooru",
       aboutAppIntro:
-        "Enga Ooru Vengamooru is a community application built for our village, to bring festival planning, family records and everyday coordination into one simple, shared place, developed & Maintained by Sujith E",
+        "Enga Ooru Vengamooru is a community application built for our village, to bring festival planning, family records and everyday coordination into one simple, shared place, developed & maintained by Sujith Elangovan",
       ourPurpose: "Our Purpose",
       ourPurposeText:
         "This application helps the village community manage festivals, family information, contributions, expenses, announcements, important contacts and everyday community information — all in one place, accessible to everyone.",
