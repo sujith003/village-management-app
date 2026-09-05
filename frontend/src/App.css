@@ -4019,3 +4019,27 @@ button.cancel-button:hover,
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
+@media (max-width: 480px) {
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    width: auto;
+  }
+
+  .toast-item {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .notification-dropdown {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: 64px;
+    width: auto;
+    max-width: none;
+  }
+}
