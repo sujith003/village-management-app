@@ -10,12 +10,44 @@ from festivals.models import Festival
 from payments.models import Payment
 
 from django.db.models import Sum
+from rest_framework.permissions import IsAuthenticated
 
 
 class NotificationListView(generics.ListAPIView):
 
     queryset = Notification.objects.all().order_by("-created_at")
     serializer_class = NotificationSerializer
+
+class NotificationClearAllView(APIView):
+    """
+    Deletes every Notification record. Only the notification log is
+    touched here — Family Function requests/approvals, uploaded images,
+    and every other model are untouched by this endpoint.
+
+    Only the Django admin account (the one that logs in via
+    /api/login/ and receives a DRF auth token) can call this — public
+    users authenticate through a separate OTP flow and never hold a
+    token, so IsAuthenticated here is an effective, real admin check,
+    not just a hidden button.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        Notification.objects.all().delete()
+        return Response(status=204)
+
+class NotificationMarkAllUnreadView(APIView):
+    """
+    Marks every Notification record as unread. Same admin-only
+    protection as NotificationClearAllView above, for the same reason.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request):
+        Notification.objects.all().update(is_read=False)
+        return Response(status=200)
 
 
 class NotificationReadView(APIView):

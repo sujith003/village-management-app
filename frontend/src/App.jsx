@@ -16,6 +16,11 @@ import {
   Check,
   MoreHorizontal,
   PartyPopper,
+  Trash2,
+  RotateCcw,
+  ShieldCheck,
+  UserRound,
+  Share2,
 } from "lucide-react";
 
 import Home from "./pages/Home";
@@ -55,11 +60,28 @@ function safeAmount(value) {
 }
 
 function AppShell() {
-  const isAdmin = localStorage.getItem("userType") === "admin";
+  const [userType, setUserType] = useState(() =>
+    localStorage.getItem("userType")
+  );
+  const isAdmin = userType === "admin";
+
+  useEffect(() => {
+    // Login.jsx dispatches this after a successful login so the header
+    // icon updates immediately, without needing a full page reload.
+    const handleLoginEvent = () => {
+      setUserType(localStorage.getItem("userType"));
+    };
+
+    window.addEventListener("login", handleLoginEvent);
+    return () => window.removeEventListener("login", handleLoginEvent);
+  }, []);
+
   const [notifications, setNotifications] = useState([]);
   const [notificationsLoading, setNotificationsLoading] = useState(false);
   const [notificationsError, setNotificationsError] = useState("");
   const [markingAllRead, setMarkingAllRead] = useState(false);
+  const [clearingAll, setClearingAll] = useState(false);
+  const [markingAllUnread, setMarkingAllUnread] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
@@ -115,7 +137,6 @@ function AppShell() {
         ? data.filter((item) => isAdmin || item.audience !== "ADMIN")
         : [];
       setNotifications(visible);
-      setNotifications(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Notification fetch error:", error);
       // A background poll failing silently shouldn't nag the user with an
@@ -241,6 +262,104 @@ function AppShell() {
       toast.error(t("unableToMarkAsRead"));
     } finally {
       setMarkingAllRead(false);
+    }
+  };
+
+  const authHeaders = () => {
+    const token = localStorage.getItem("authToken");
+    return token ? { Authorization: `Token ${token}` } : {};
+  };
+
+  // =====================================================
+  // SHARE WEBSITE
+  // =====================================================
+
+  const handleShareWebsite = async () => {
+    const shareData = {
+      title: "Enga Ooru Vengamooru",
+      text: t("shareWebsiteDescription"),
+      url: window.location.origin,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Share error:", error);
+        }
+      }
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(shareData.url);
+      toast.success(t("websiteLinkCopied"));
+    } catch (error) {
+      console.error("Clipboard error:", error);
+      toast.error(t("unableToCopyLink"));
+    }
+  };
+
+  // =====================================================
+  // CLEAR ALL NOTIFICATIONS (admin only)
+  // =====================================================
+
+  const handleClearAllNotifications = async () => {
+    const confirmed = window.confirm(t("confirmClearAllNotifications"));
+    if (!confirmed) return;
+
+    setClearingAll(true);
+
+    try {
+      const response = await fetch(`${API_URL}/api/notifications/clear-all/`, {
+        method: "DELETE",
+        headers: authHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Clear all failed (${response.status})`);
+      }
+
+      setNotifications([]);
+      toast.success(t("notificationsCleared"));
+    } catch (error) {
+      console.error("Clear all notifications error:", error);
+      toast.error(t("unableToClearNotifications"));
+    } finally {
+      setClearingAll(false);
+    }
+  };
+
+  // =====================================================
+  // MARK ALL NOTIFICATIONS AS UNREAD (admin only)
+  // =====================================================
+
+  const handleMarkAllUnread = async () => {
+    setMarkingAllUnread(true);
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/notifications/mark-all-unread/`,
+        {
+          method: "PATCH",
+          headers: authHeaders(),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Mark all unread failed (${response.status})`);
+      }
+
+      setNotifications((previous) =>
+        previous.map((item) => ({ ...item, is_read: false }))
+      );
+      toast.success(t("notificationsMarkedUnread"));
+    } catch (error) {
+      console.error("Mark all unread error:", error);
+      toast.error(t("unableToMarkAllUnread"));
+    } finally {
+      setMarkingAllUnread(false);
     }
   };
 
@@ -377,6 +496,30 @@ function AppShell() {
                         {t("markAllAsRead")}
                       </button>
                     )}
+
+                    {isAdmin && notifications.length > 0 && (
+                      <button
+                        type="button"
+                        className="notification-mark-all-unread"
+                        onClick={handleMarkAllUnread}
+                        disabled={markingAllUnread}
+                      >
+                        <RotateCcw size={14} />
+                        {t("markAllAsUnread")}
+                      </button>
+                    )}
+
+                    {isAdmin && notifications.length > 0 && (
+                      <button
+                        type="button"
+                        className="notification-clear-all"
+                        onClick={handleClearAllNotifications}
+                        disabled={clearingAll}
+                      >
+                        <Trash2 size={14} />
+                        {t("clearAll")}
+                      </button>
+                    )}
                   </div>
 
                   {notificationsLoading && (
@@ -432,6 +575,37 @@ function AppShell() {
                 </div>
               )}
             </div>
+
+            {/* =================================================
+                SHARE WEBSITE
+            ================================================= */}
+
+            <button
+              type="button"
+              className="share-website-button"
+              onClick={handleShareWebsite}
+              title={t("shareWebsite")}
+            >
+              <Share2 size={18} />
+            </button>
+
+            {/* =================================================
+                ROLE INDICATOR (shown once logged in)
+            ================================================= */}
+
+            {userType === "admin" && (
+              <span className="role-badge role-badge-admin">
+                <ShieldCheck size={16} />
+                {t("adminRoleLabel")}
+              </span>
+            )}
+
+            {userType === "public" && (
+              <span className="role-badge role-badge-public">
+                <UserRound size={16} />
+                {t("publicUserRoleLabel")}
+              </span>
+            )}
 
             {/* =================================================
                 LOGIN
@@ -519,8 +693,6 @@ function AppShell() {
               className="payment-modal"
               onClick={(event) => event.stopPropagation()}
             >
-              {/* Modal Header */}
-
               <div className="payment-modal-header">
                 <div>
                   <h2>{t("paymentDetailsTitle")}</h2>
@@ -535,8 +707,6 @@ function AppShell() {
                   <X size={22} />
                 </button>
               </div>
-
-              {/* Modal Body */}
 
               <div className="payment-modal-body">
                 {paymentLoading && (

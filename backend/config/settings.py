@@ -81,6 +81,17 @@ INSTALLED_APPS = [
     "family_functions",
 ]
 
+# Only adds token-based auth support (used by the two admin-only
+# notification-management endpoints below); every other existing view
+# keeps working exactly as before since no default permission class is
+# set here — views stay open unless a view explicitly opts in.
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+}
+
 # Defaults preserve the existing local dev origins; extra production
 # origins (e.g. the deployed frontend) are added via an env var so
 # nothing needs to change in code for a new deployment URL.

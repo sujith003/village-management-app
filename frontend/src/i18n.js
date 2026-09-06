@@ -162,6 +162,16 @@ const resources = {
       loadingPaymentDetails: "Loading payment details...",
       pending: "Pending",
       paid: "Paid",
+            markAllAsUnread: "Mark All as Unread",
+      notificationsMarkedUnread: "All notifications marked as unread.",
+      unableToMarkAllUnread: "Unable to mark notifications as unread.",
+      adminRoleLabel: "Admin",
+      publicUserRoleLabel: "Public User",
+      shareWebsite: "Share Website",
+      shareWebsiteDescription:
+        "Connect with our village community, view family functions, announcements, events and more.",
+      websiteLinkCopied: "Website link copied!",
+      unableToCopyLink: "Unable to copy the link.",
 
       // Payments page
       viewManagePayments: "View and manage family festival payments",
@@ -774,6 +784,17 @@ enterTransactionReference: "Enter transaction / reference number (optional)",
       loadingPaymentDetails: "பணம் செலுத்தும் விவரங்கள் ஏற்றப்படுகிறது...",
       pending: "நிலுவையில்",
       paid: "செலுத்தப்பட்டது",
+      
+            markAllAsUnread: "அனைத்தையும் படிக்காதவை ஆக்கு",
+      notificationsMarkedUnread: "அனைத்து அறிவிப்புகளும் படிக்காதவை ஆக்கப்பட்டன.",
+      unableToMarkAllUnread: "அறிவிப்புகளை படிக்காதவை ஆக்க முடியவில்லை.",
+      adminRoleLabel: "நிர்வாகி",
+      publicUserRoleLabel: "பொது பயனர்",
+      shareWebsite: "இணையதளத்தை பகிர்",
+      shareWebsiteDescription:
+        "எங்கள் கிராம சமூகத்துடன் இணையுங்கள் — குடும்ப நிகழ்ச்சிகள், அறிவிப்புகள், நிகழ்வுகள் மற்றும் பலவற்றைப் பார்க்கவும்.",
+      websiteLinkCopied: "இணையதள இணைப்பு நகலெடுக்கப்பட்டது!",
+      unableToCopyLink: "இணைப்பை நகலெடுக்க முடியவில்லை.",
 
       // Payments page
       viewManagePayments: "குடும்ப திருவிழா பணம் செலுத்துதலை பார்க்கவும் நிர்வகிக்கவும்",

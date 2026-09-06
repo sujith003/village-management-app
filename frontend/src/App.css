@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -2234,8 +2236,6 @@ body {
    appended last.
    ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap");
-
 :root {
   /* Palette */
   --vf-bg: #fbf3e1;
@@ -3114,6 +3114,7 @@ button.cancel-button:hover,
 .notification-dropdown-header {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--vf-border);
@@ -3121,8 +3122,27 @@ button.cancel-button:hover,
 
 .notification-dropdown-header h3 {
   margin: 0;
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 0;
   font-size: 1rem;
+}
+
+.notification-dropdown-header > span {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--vf-ink-soft);
+  background: var(--vf-surface-soft);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+
+.notification-dropdown-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  width: 100%;
 }
 
 .notification-mark-all {
@@ -3138,6 +3158,96 @@ button.cancel-button:hover,
   font-weight: 700;
   cursor: pointer;
 }
+
+.notification-clear-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: var(--vf-danger-soft);
+  color: var(--vf-danger);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter var(--vf-transition);
+}
+
+.notification-clear-all:hover {
+  filter: brightness(0.95);
+}
+
+.notification-clear-all:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.notification-mark-all-unread {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: var(--vf-warning-soft);
+  color: var(--vf-warning);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter var(--vf-transition);
+}
+
+.notification-mark-all-unread:hover {
+  filter: brightness(0.95);
+}
+
+.notification-mark-all-unread:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.share-website-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--vf-transition);
+  flex-shrink: 0;
+}
+
+.share-website-button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.role-badge-admin {
+  background: var(--vf-gold);
+  color: var(--vf-maroon-dark);
+}
+
+.role-badge-public {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
 
 .notification-item-content {
   padding: 12px 16px;
@@ -4020,7 +4130,13 @@ button.cancel-button:hover,
   }
 }
 
-
+/* ---------- Mobile fix: notification toast + dropdown overflow ----------
+   Desktop/tablet layout for these two components is untouched above this
+   breakpoint. On narrow phones, the toast popup and the notification
+   dropdown previously used a fixed width anchored to the right edge,
+   which could push part of the box past the left edge of the viewport.
+   Below, they're pinned with left+right insets instead of a fixed width,
+   so they always stay inside the screen with even side spacing. */
 @media (max-width: 480px) {
   .toast-container {
     left: 12px;
@@ -4043,8 +4159,6 @@ button.cancel-button:hover,
     max-width: none;
   }
 }
-
-
 
 /* ---------- Family Functions page ---------- */
 
@@ -4098,10 +4212,17 @@ button.cancel-button:hover,
   overflow: hidden;
 }
 
+.function-card-image[role="button"] {
+  cursor: pointer;
+}
+
 .function-card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* "contain" (not "cover") so the invitation preview is never cropped —
+     the full uploaded image is always visible, just letterboxed if its
+     aspect ratio doesn't match the card. */
+  object-fit: contain;
 }
 
 .function-card-body {
@@ -4229,9 +4350,123 @@ button.cancel-button:hover,
 .function-detail-image {
   width: 100%;
   max-height: 260px;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--vf-surface-soft);
   border-radius: var(--vf-radius-sm);
   margin-bottom: var(--vf-space-2);
+  cursor: pointer;
+}
+
+.function-invitation-block {
+  margin-bottom: var(--vf-space-2);
+}
+
+.function-invitation-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.function-invitation-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--vf-border);
+  background: var(--vf-surface);
+  color: var(--vf-maroon);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--vf-transition);
+}
+
+.function-invitation-actions button:hover {
+  background: var(--vf-maroon-soft);
+  border-color: var(--vf-maroon);
+}
+
+/* Full invitation lightbox — shows the complete, unmodified image. */
+
+.invitation-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--vf-space-3);
+  z-index: 300;
+}
+
+.invitation-lightbox-content {
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vf-space-2);
+  overflow: auto;
+}
+
+.invitation-lightbox-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.invitation-lightbox-actions > button:not(.invitation-lightbox-close) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--vf-gold);
+  color: var(--vf-maroon-dark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.invitation-lightbox-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.invitation-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.invitation-lightbox-image {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--vf-radius-sm);
+  margin: 0 auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .invitation-lightbox-content {
+    max-width: 100vw;
+  }
+
+  .invitation-lightbox-image {
+    max-height: 70vh;
+  }
 }
 
 @media (max-width: 600px) {
